@@ -1,0 +1,697 @@
+/* Variáveis de cores */
+:root {
+  --primary: #e74c3c;
+  --secondary: #2c3e50;
+  --accent: #3498db;
+  --light: #ecf0f1;
+  --dark: #2c3e50;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --text: #333;
+  --bg-light: #f9f9f9;
+}
+
+[data-theme="dark"] {
+  --light: #2c3e50;
+  --dark: #1a2530;
+  --text: #ecf0f1;
+  --bg-light: #1a2530;
+}
+
+/* Reset e estilos globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Tela inicial */
+#homeScreen {
+  text-align: center;
+  padding: 30px;
+}
+
+#homeScreen h1 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Cards de jogo */
+.game-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px; /* Espaçamento aumentado */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Garante mesma altura */
+  min-height: 300px; /* Altura mínima aumentada */
+}
+
+.game-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.game-icon {
+  font-size: 4.5rem;
+  margin-bottom: 25px;
+  transition: transform 0.4s ease;
+}
+
+.game-card:hover .game-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.game-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.game-card p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Adicionando efeito de brilho sutil */
+.game-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(255,255,255,0.1), 
+    rgba(255,255,255,0.01), 
+    rgba(255,255,255,0.1));
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* Interface do jogo */
+.game-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 15px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.game-content {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 30px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Controles de tropas */
+.troops-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .troops-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+.troops-set {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+}
+
+.troops-set.attack {
+  border-top: 5px solid var(--primary);
+}
+
+.troops-set.defense {
+  border-top: 5px solid var(--secondary);
+}
+
+.input-group {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+input[type="number"] {
+  width: 100px;
+  padding: 12px;
+  font-size: 1.1rem;
+  text-align: center;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  outline: none;
+}
+
+input[type="number"]:focus {
+  border-color: var(--accent);
+}
+
+.info {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+/* Botões */
+.btn {
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn.secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.battle-controls {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Dados */
+.die {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.die.red {
+  background: linear-gradient(145deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.die.black {
+  background: linear-gradient(145deg, #2c3e50, #1a2530);
+  color: white;
+}
+
+/* Resultado da batalha */
+.battle-report {
+  margin-top: 30px;
+}
+
+.battle-result {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.final-result {
+  text-align: center;
+}
+
+.final-result h3 {
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+.result-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.vs {
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.victory {
+  color: #2ecc71;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 15px 0;
+}
+
+.defeat {
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 15px 0;
+}
+
+.loss.attack {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.loss.defense {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+/* Layout das rodadas */
+.round-report {
+  margin-top: 30px;
+}
+
+.round {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.round h4 {
+  color: #3498db;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.round-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dice-comparison {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.dice-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dice-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.dice-set {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.vs-icon {
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.round-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.round-details p {
+  margin: 5px 0;
+}
+
+.loss.attack {
+  color: #e74c3c;
+}
+
+.loss.defense {
+  color: #2c3e50;
+}
+
+.troops.attack {
+  color: #e74c3c;
+}
+
+.troops.defense {
+  color: #2c3e50;
+}
+
+/* Histórico */
+.history-panel {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-panel h3 {
+  margin-bottom: 15px;
+  color: var(--accent);
+}
+
+.history-list {
+  list-style: none;
+}
+
+.history-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.history-item:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.history-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.history-stats .attack {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.history-stats .defense {
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.history-result {
+  text-align: center;
+  margin: 10px 0;
+  padding: 8px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.history-result.victory {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+.history-result.defeat {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.history-rounds {
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+/* Botão de tema */
+.theme-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+#themeToggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(20deg);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .game-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .dice-comparison {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .round-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .result-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .troops-set {
+    padding: 15px;
+  }
+  
+  .dice-set {
+    flex-wrap: wrap;
+  }
+  
+  .die {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+}
+.battle-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.battle-option input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.battle-option label {
+  margin: 0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Tags de status */
+.status-tag {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.all-in-tag {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.lotr-tag {
+  background: rgba(156, 39, 176, 0.2);
+  color: #9c27b0;
+}
+
+/* Container para centralizar o botão */
+.simulate-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  grid-column: 1 / -1;
+}
+
+/* Ajustes para o botão centralizado */
+.troops-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .troops-controls {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estilo para resultado de empate */
+.draw {
+  color: #ff9800;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 15px 0;
+}
+
+/* Histórico - tag All-in */
+.history-item .all-in-tag {
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  margin: 5px auto;
+  text-align: center;
+  width: fit-content;
+}
+
+/* Resultados no histórico */
+.history-result.draw {
+  background: rgba(255, 152, 0, 0.15);
+  color: #ff9800;
+}
+
+/* Modo no histórico */
+.history-mode {
+  text-align: center;
+  font-size: 0.9rem;
+  margin: 8px 0;
+  color: #3498db;
+  font-weight: bold;
+}
